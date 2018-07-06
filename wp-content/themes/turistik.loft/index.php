@@ -1,12 +1,14 @@
-<?php get_header(); ?>
+<?php
+/*
+ * Template Post Type: news, promotions
+ */
+get_header(); ?>
     <div class="content">
         <h1 class="title-page">Последние новости и акции из мира туризма</h1>
         <div class="posts-list">
             <?php
             $args = array(
                 'post_type' => array('post', 'news', 'promotions'),
-                'publish' => true,
-                'paged' => get_query_var('paged'),
             );
             query_posts($args);
             if (have_posts()) : while (have_posts()) : the_post(); ?>

@@ -24,14 +24,16 @@
         </div>
         <div class="bottom-header">
             <div class="search-form-wrap">
-                <form class="search-form" action="/" method="get">
-                    <input type="text" placeholder="Поиск..." class="search-form__input" name="s">
-                    <button type="submit" class="search-form__btn-search"><i class="icon icon-search"></i></button>
-                </form>
+                <?php
+                get_search_form(); ?>
+<!---->
+<!--                <form class="search-form" action="/" method="get">-->
+<!--                    <input type="text" placeholder="Поиск..." class="search-form__input" name="s" id="s">-->
+<!--                    <button type="submit" id="searchsubmit" value="Search" class="search-form__btn-search"><i class="icon icon-search"></i></button>-->
+<!--                </form>-->
             </div>
         </div>
     </header>
     <!-- header_end-->
     <div class="main-content">
-        x
         <div class="content-wrapper">
