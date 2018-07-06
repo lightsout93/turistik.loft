@@ -8,7 +8,7 @@ get_header(); ?>
         <div class="posts-list">
             <?php
             $args = array(
-                'post_type' => array('post', 'news', 'promotions'),
+                'post_type' => array('news', 'promotions'),
             );
             query_posts($args);
             if (have_posts()) : while (have_posts()) : the_post(); ?>
@@ -33,8 +33,9 @@ get_header(); ?>
                                                                    class="btn-read-post">Читать далее >></a></div>
                     </div>
                 </div>
-            <?php endwhile; ?>
-            <?php endif; ?>
+            <?php endwhile;
+            endif;
+            wp_reset_query(); ?>
         </div>
         <div class="pagenavi-post-wrap"><?php the_posts_pagination([
                 'end_size' => 1,

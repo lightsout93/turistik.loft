@@ -1950,7 +1950,7 @@ function get_calendar( $initial = true, $echo = true ) {
 
 	// Quick check. If we have no posts at all, abort!
 	if ( ! $posts ) {
-		$gotsome = $wpdb->get_var("SELECT 1 as test FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' LIMIT 1");
+		$gotsome = $wpdb->get_var("SELECT 1 as test FROM $wpdb->posts WHERE post_type = 'news' OR post_type = 'promotions' AND post_status = 'publish' LIMIT 1");
 		if ( ! $gotsome ) {
 			$cache[ $key ] = '';
 			wp_cache_set( 'get_calendar', $cache, 'calendar' );
@@ -1989,20 +1989,20 @@ function get_calendar( $initial = true, $echo = true ) {
 
 	$unixmonth = mktime( 0, 0 , 0, $thismonth, 1, $thisyear );
 	$last_day = date( 't', $unixmonth );
-
-	// Get the next and previous month and year with at least one post
-	$previous = $wpdb->get_row("SELECT MONTH(post_date) AS month, YEAR(post_date) AS year
-		FROM $wpdb->posts
-		WHERE post_date < '$thisyear-$thismonth-01'
-		AND post_type = 'post' AND post_status = 'publish'
-			ORDER BY post_date DESC
-			LIMIT 1");
-	$next = $wpdb->get_row("SELECT MONTH(post_date) AS month, YEAR(post_date) AS year
-		FROM $wpdb->posts
-		WHERE post_date > '$thisyear-$thismonth-{$last_day} 23:59:59'
-		AND post_type = 'post' AND post_status = 'publish'
-			ORDER BY post_date ASC
-			LIMIT 1");
+//
+//	// Get the next and previous month and year with at least one post
+//	$previous = $wpdb->get_row("SELECT MONTH(post_date) AS month, YEAR(post_date) AS year
+//		FROM $wpdb->posts
+//		WHERE post_date < '$thisyear-$thismonth-01'
+//		AND post_type = 'news' AND post_type = 'promotions' AND post_status = 'publish'
+//			ORDER BY post_date DESC
+//			LIMIT 1");
+//	$next = $wpdb->get_row("SELECT MONTH(post_date) AS month, YEAR(post_date) AS year
+//		FROM $wpdb->posts
+//		WHERE post_date > '$thisyear-$thismonth-{$last_day} 23:59:59'
+//		AND post_type = 'news' AND post_type = 'promotions'
+//			ORDER BY post_date ASC
+//			LIMIT 1");
 
 	/* translators: Calendar caption: 1: month name, 2: 4-digit year */
 	$calendar_caption = _x('%1$s %2$s', 'calendar caption');
@@ -2064,7 +2064,7 @@ function get_calendar( $initial = true, $echo = true ) {
 	// Get days with posts
 	$dayswithposts = $wpdb->get_results("SELECT DISTINCT DAYOFMONTH(post_date)
 		FROM $wpdb->posts WHERE post_date >= '{$thisyear}-{$thismonth}-01 00:00:00'
-		AND post_type = 'post' AND post_status = 'publish'
+		AND post_type = 'news' OR post_type = 'promotions' AND post_status = 'publish'
 		AND post_date <= '{$thisyear}-{$thismonth}-{$last_day} 23:59:59'", ARRAY_N);
 	if ( $dayswithposts ) {
 		foreach ( (array) $dayswithposts as $daywith ) {

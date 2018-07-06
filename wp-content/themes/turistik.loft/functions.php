@@ -63,7 +63,6 @@ function my_custom_init_news()
         'menu_position' => null,
         'supports' => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments'),
         'taxonomies' => array('post_tag'),
-        '_builtin' => true
     ));
 }
 
